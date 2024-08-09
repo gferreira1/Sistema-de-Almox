@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+   /*background-color: #7c0be6;*/
+   background-image: url(./uploads/Wallpaper/Wallpaper.jpg)!important;
+   margin-left: 56%;
+}
+   
+    
+
+
+.login-container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 200px;
+    padding: 20px;
+    background-color: #f7f7f7b0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 1px #ada8a8 solid;
+}
+
+.login-container h1 {
+    text-align: center;
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 93%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6027ce;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.login-form button:hover {
+    background-color: #5614da;
+}
+
+.login-form .buttoncriar {
+    width: 93%;
+    padding: 10px;
+    background-color: #14ad00;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.login-form .buttoncriar:hover {
+    background-color: #13a100;
+}
+
+
+.error-message {
+    color:  #eb0000;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+
+.esqueceusenha{
+    text-align: center;
+    color: #007bff;
+    font-size: 10px;
+}
+
+.buttonsair{
+    width: 100%;
+    display: inline-block;
+}
+
+.sair{
+    margin-right: 10px;
+    margin-top: 1em;
+    float: right;
+}
+
+.textsoli{
+    text-align: center;
+    padding: 20px;
+}
+
+.criarconta{
+    color: #0c5602;
+}
+
+.senhaesqueceu{
+  color:#ad0808
+}
+
+.opcoes{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.descricaoh5 {
+    text-align: center!important;
+    padding: 17px;
+    font-size: 14px;
+    width: 100%;
+
+}
+
+/* Adicione este CSS para o efeito de zoom nas imagens */
+.zoomable-image {
+    width: 50px; /* Largura inicial da imagem */
+    height: 50px; /* Altura inicial da imagem */
+    transition: transform 0.2s; /* Efeito de transição suave */
+}
+
+.zoomable-image:hover {
+    transform: scale(1.2); /* Aumenta a escala da imagem em 20% no hover */
+}
+
+.zoomable-image {
+    max-width: 100px;
+    max-height: 100px;
+    transition: transform 0.2s;
+}
+
+.zoomable-image:hover {
+    transform: scale(7.2);
+}
+

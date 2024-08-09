@@ -1,0 +1,92 @@
+/* Estilo para o cabeçalho */
+.textsoli {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Estilo para as caixas de informações */
+.balance-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttonsair {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.balance-box {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.balance-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Estilo para os botões laterais */
+.btn-group-vertical {
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+/* Estilo para o contêiner de formulário */
+#formContainer {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+
+.col-md-9 {
+    flex: 0 0 auto;
+    width: 65%!important;
+}
+
+footer {
+    background-color: #333; /* Cor de fundo do footer */
+    color: #fff; /* Cor do texto no footer */
+    padding: 10px;
+    text-align: center;
+    margin-top: 22%;
+}
+
+/*.product-image {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* Adicione este CSS para o efeito de zoom nas imagens */
+.zoomable-image {
+    width: 50px; /* Largura inicial da imagem */
+    height: 50px; /* Altura inicial da imagem */
+    transition: transform 0.2s; /* Efeito de transição suave */
+}
+
+.zoomable-image:hover {
+    transform: scale(1.2); /* Aumenta a escala da imagem em 20% no hover */
+}
+
+.zoomable-image {
+    max-width: 100px;
+    max-height: 100px;
+    transition: transform 0.2s;
+}
+
+.zoomable-image:hover {
+    transform: scale(7.2);
+}
+
+input#quantidade-solicitada {
+    margin-left: 4px;
+    width: 45px;
+}

@@ -1,0 +1,144 @@
+/* Reset de Estilos */
+body, h1, h2, h3, h4, h5, h6, p, ul, li, table, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Estilos do Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #222;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    margin-right: 20px;
+    color: #fff;
+
+}
+
+.buttonsair {
+    display: flex;
+    align-items: center;
+}
+
+.sair {
+    background-color: #083a03;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px; /* Adicione esta linha para ajustar a margem esquerda */
+}
+
+/* Estilos do Saldo e Itens */
+main {
+    padding: 20px;
+}
+
+.saldo {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.saldo h2 {
+    margin-bottom: 10px;
+}
+
+.saldo-valor {
+    font-size: 24px;
+    color: #009688;
+}
+
+.itens {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.itens h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilos do Rodapé */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Estilo para as caixas de informações */
+
+/* ... (seu estilo anterior) ... */
+
+.balance-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.balance-box {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    flex-basis: calc(33.33% - 20px);
+}
+
+/* ... (seu estilo anterior) ... */
+
+.balance-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+       
+      
