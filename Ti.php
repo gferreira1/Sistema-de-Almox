@@ -1,8 +1,7 @@
 <?php
 include('protect.php');
 include('pesquisa.php');
-include('config.php');
-include('config2.php');
+include('configsqlite.php');
 ?>
 
 <!DOCTYPE html>
@@ -91,12 +90,12 @@ include('config2.php');
 
                 <div class="container text-center">
                     <?php
-                    $result = $mysqli->query($sql);
+                    $result = $pdo->query($sql);
 
                     if (!$result) {
                         die("Erro na consulta: " . $mysqli->error);
                     } else {
-                        if ($result->num_rows > 0) {
+                        if ($result) {
                             echo '<div class="container">';
                             echo '<h2>Resultados da Pesquisa</h2>';
                             echo '<table class="table">';
@@ -113,7 +112,7 @@ include('config2.php');
                             echo '</thead>';
                             echo '<tbody>';
 
-                            while ($row = $result->fetch_assoc()) {
+                            while ($row = $result->fetchAll()) {
                                 echo '<tr class="table-row" data-bs-toggle="modal" data-bs-target="#itemModal' . $row['id'] . '">';
                                 echo '<td><img class="zoomable-image"src="' . $row['caminho_imagem'] . '" alt="Imagem do Produto" width="50" height="50"></td>';
                                 echo '<td>' . $row['quantidade'] . '</td>';
@@ -154,7 +153,6 @@ include('config2.php');
                         }
                     }
 
-                    $mysqli->close();
                     ?>
                 </div>
                 `;
