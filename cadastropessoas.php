@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 VALUES (:nome, :sobrenome, :usuario, :setor, :senha)");
 
         if (!$stmt) {
-            echo "Erro na preparação da consulta: " . $pdo->errorCode();
+            echo "Erro na preparação da consulta: " . $pdo->errorCode(); 
         } else {
             // Ajuste o tipo de dados no bind_param conforme necessário
             $stmt->bindParam(":nome", $nome);

@@ -1,7 +1,8 @@
 <?php
 include('protect.php');
 include('pesquisa.php');
-include('config2.php');
+//include('config2.php');
+include('configsqlite2.php');
 ?>
 
 <!DOCTYPE html>
@@ -47,13 +48,13 @@ include('config2.php');
 
                         echo '<div class="balance-box">';
                         echo '<h3>Saldo</h3>';
-
                         // Calcula o saldo total somando os valores calculados (quantidade * valor)
-                        while ($row = $result->fetch_assoc()) {
-                            $valorTotal = $row['quantidade'] * $row['valor'];
-                            $saldoTotal += $valorTotal;
+                        if($result){
+                            while ($row = $result->fetchAll()) {
+                                $valorTotal = $row['quantidade'] * $row['valor'];
+                                $saldoTotal += $valorTotal;
+                            }
                         }
-
                         // Exibe o saldo total formatado como moeda
                         echo '<p class="balance-value">R$ ' . number_format($saldoTotal, 2, ',', '.') . '</p>';
                         echo '</div>';
