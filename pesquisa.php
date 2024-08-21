@@ -1,5 +1,5 @@
 <?php
-include('configsqlite.php');
+include('configs/configsqlite.php');
 
 if (isset($_GET['descricao'])) {
     $descricao = $_GET['descricao'];

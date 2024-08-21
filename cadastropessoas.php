@@ -1,7 +1,7 @@
 <?php
 include('protect.php');
 include('pesquisa.php');
-include('configsqlite.php');
+include('configs/configsqlite.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $setor = $_POST["setor"];
     $senha = $_POST["senha"];
     $confirm_senha = $_POST["confirm_senha"];
-
+    var_dump($_POST);
     // Verificações de entrada
     if (empty($nome) || empty($sobrenome) || empty($setor) || empty($senha) || empty($confirm_senha) || empty($usuario)) {
         echo "Todos os campos são obrigatórios.";

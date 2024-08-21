@@ -1,8 +1,8 @@
 <?php
-include('configsqlite.php');
-include('protect.php');
-include('pesquisa.php');
-
+include('../protect.php');
+include('../pesquisa.php');
+//include('config2.php');
+include('../configs/configsqlite2.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,31 +11,62 @@ include('pesquisa.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./styles/stylecompras.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./stylecompras.css">
+    <script src="../compras.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Gerenciamento de Estoque Compras</title>
+
+<style>
+
+</style>
 </head>
 
 <body>
     <div class="buttonsair text-right">
-        <button class="sair" onclick="window.location.href = 'index.php';">Sair</button>
+        <button class="sair" onclick="window.location.href = '../index.php';">Sair</button>
     </div>
 
     <div class="container-fluid">
-        <h1 class="textsoli">Setor de TI</h1>
+        <h1 class="textsoli">Gerenciamento de Estoque Compras</h1>
         <div class="row">
             <div class="col-md-3">
                 <!-- Botões Laterais -->
                 <div class="btn-group-vertical">
                     <h3>Gerenciamento de Estoque</h3>
-                    <button type="button" class="btn btn-secondary" onclick="showForm('cadastrar')">Cadastro de Usuario</button>
+                    <button type="button" class="btn btn-secondary" onclick="showForm('cadastrar')">Cadastro de Produto</button>
                     <button type="button" class="btn btn-secondary" onclick="showForm('consultar')">Consulta de Estoque</button>
                     <button type="button" class="btn btn-secondary" onclick="showForm('#')">Solicitaçoes de Compra</button>
                 </div>
             </div>
             <div class="col-md-9">
+                <!-- Caixas de Informações -->
+                <div class="balance-boxes">
+                    <div class="balance-box">
+                        <!-- Exibe o saldo total -->
+                        <?php
+                        $saldoTotal = 0; // Variável para armazenar o saldo total
 
+                        echo '<div class="balance-box">';
+                        echo '<h3>Saldo</h3>';
+                        // Calcula o saldo total somando os valores calculados (quantidade * valor)
+                        if($result){
+                            while ($row = $result->fetchAll()) {
+                                $valorTotal = $row['quantidade'] * $row['valor'];
+                                $saldoTotal += $valorTotal;
+                            }
+                        }
+                        // Exibe o saldo total formatado como moeda
+                        echo '<p class="balance-value">R$ ' . number_format($saldoTotal, 2, ',', '.') . '</p>';
+                        echo '</div>';
+                        ?>
+                    </div>
+                    <div class="balance-box">
+                        <div class="balance-box">
+                            <h3>Quantidade de Itens Cadastrados</h3>
+                            <p class="balance-value"><?php echo $totalItens; ?> itens</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="formContainer">
                     <!-- O formulário será exibido aqui -->
@@ -59,7 +90,7 @@ include('pesquisa.php');
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" name="item" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" name="item" placeholder="Item" aria-label="Item" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col">
@@ -75,10 +106,9 @@ include('pesquisa.php');
 
                             <div class="col">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="localizacao" placeholder="Localização" aria-label="Localização" aria-describedby="basic-addon3">
+                                    <input type="text" class="form-control" name="localizacao" placeholder="Localização" aria-label="Localização" aria-describedby="basic-addon4">
                                 </div>
                             </div>
-                            
                         </div>
 
                         <div class="container text-center">
@@ -91,12 +121,13 @@ include('pesquisa.php');
 
                 <div class="container text-center">
                     <?php
-                    $result = $pdo->query($sql);
+                    $result = $mysqli->query($sql);
 
                     if (!$result) {
                         die("Erro na consulta: " . $mysqli->error);
                     } else {
-                        if ($result) {
+                        $numResultados = $result->num_rows; // Conta o número de resultados
+                        if ($result->num_rows > 0) {
                             echo '<div class="container">';
                             echo '<h2>Resultados da Pesquisa</h2>';
                             echo '<table class="table">';
@@ -105,6 +136,7 @@ include('pesquisa.php');
                             echo '<th>Imagem</th>';
                             echo '<th>Quantidade</th>';
                             echo '<th>Descrição</th>';
+                            echo '<th>Categoria</th>';
                             echo '<th>Item</th>';
                             echo '<th>Localização</th>';
                             echo '<th>Valor Unitário</th>';
@@ -113,12 +145,14 @@ include('pesquisa.php');
                             echo '</thead>';
                             echo '<tbody>';
 
-                            while ($row = $result->fetchAll()) {
+                            while ($row = $result->fetch_assoc()) {
                                 echo '<tr class="table-row" data-bs-toggle="modal" data-bs-target="#itemModal' . $row['id'] . '">';
                                 echo '<td><img class="zoomable-image"src="' . $row['caminho_imagem'] . '" alt="Imagem do Produto" width="50" height="50"></td>';
+
+
                                 echo '<td>' . $row['quantidade'] . '</td>';
                                 echo '<td>' . $row['descricao'] . '</td>';
-                                // echo '<td>' . $row['categoria'] . '</td>';
+                                echo '<td>' . $row['categoria'] . '</td>';
                                 echo '<td>' . $row['item'] . '</td>';
                                 echo '<td>' . $row['localizacao'] . '</td>';
                                 echo '<td>R$ ' . $row['valor'] . '</td>';
@@ -136,7 +170,9 @@ include('pesquisa.php');
                                 echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
                                 echo '</div>';
                                 echo '<div class="modal-body">';
-                                echo '<p>Quantidade: ' . $row['quantidade'] . '</p>';
+                                // Adicione um campo de entrada de quantidade
+                                echo '<label for="quantidade-solicitada">Quantidade desejada:</label>';
+                                echo '<input type="number" id="quantidade-solicitada" name="quantidade-solicitada" min="1" max="' . $row['quantidade'] . '" value="1">';
                                 echo '<p>Descrição: ' . $row['descricao'] . '</p>';
                                 echo '<p>Localização: ' . $row['localizacao'] . '</p>';
                                 echo '<button type="button" data-bs-dismiss="modal" aria-label="Close">Solicitar</button>';
@@ -154,52 +190,49 @@ include('pesquisa.php');
                         }
                     }
 
+                    $mysqli->close();
                     ?>
                 </div>
                 `;
             } else if (formType === 'cadastrar') {
                 formHTML = `
-                <h2>Cadastro de usuario </h2>
-                <form method="POST" action="cadastropessoas.php" enctype="multipart/form-data">
+                <h2>Cadastro de Produto</h2>
+                <form method="POST" action="cadastroitem.php" enctype="multipart/form-data">
                     <!-- Seus campos de cadastro aqui -->
                     
                     <div class="mb-3">
-                        <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <input type="text" class="form-control" id="descricao" name="descricao">
                     </div>
                     <div class="mb-3">
-                        <label for="quantidade" class="form-label">Sobrenome </label>
-                        <input type="text" class="form-control" id="sobrenome" name="sobrenome">
+                        <label for="quantidade" class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" id="quantidade" name="quantidade">
                     </div>
                     <div class="mb-3">
-                        <label for="usuario" class="form-label">E-mail</label>
-                        <input type="text" class="form-control" id="usuario" name="usuario">
-                    </div>
-                    <div class="mb-3">
-                        <select name="setor" id="setor">
-                        <option value="setor">Setor</option>
-                            <option value="ti">TI</option>
-                            <option value="compras">Compras</option>
-                            <option value="alme">ALME</option>
-                            <option value="alms">ALMS</option>
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <select class="form-control" id="categoria" name="categoria">
+                            <option value="informatica">Informática</option>
+                            <option value="escritorio">Escritório</option>
+                            <option value="ferreamentas">Ferramentas</option>
+                            <option value="eletrica">Elétrica</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="senha" name="senha">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="confirm_senha" class="form-label">Confirmar Senha</label>
-                        <input type="password" class="form-control" id="confirm_senha" name="confirm_senha">
+                        <label for "item" class="form-label">Item</label>
+                        <input type="text" class="form-control" id="item" name="item">
                     </div>
                     <div class="mb-3">
-                        <div class="input-group">
-                            <input type="file" id="avatar" name="caminho_imagem" accept="image/png, image/jpeg" class="form-control">
-                            <button type="button" class="btn btn-secondary" id="showImagePreview"><i class="bi bi-eye-fill"></i></button>
-                        </div>
+                        <label for="localizacao" class="form-label">Localização</label>
+                        <input type="text" class="form-control" id="localizacao" name="localizacao">
                     </div>
-                    <div id="mensagemCadastro"></div>
+                    <div class="mb-3">
+                        <label for="valor" class="form-label">Valor</label>
+                        <input type="number" class="form-control" id="valor" name="valor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="caminho_imagem" class="form-label">Imagem:</label>
+                        <input type="file" id="caminho_imagem" name="caminho_imagem" accept="image/png, image/jpeg" />
+                    </div>
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </form>
                 `;
@@ -213,9 +246,11 @@ include('pesquisa.php');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="eyes.js"></script>
 </body>
-<footer>
+  <!-- Conteúdo principal do seu site vai aqui -->
+
+  <footer>
         <p>&copy; 2023 Nome da Sua Empresa</p>
     </footer>
+
 </html>

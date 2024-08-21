@@ -1,7 +1,7 @@
 <?php
 try {
     // Conectar ao banco de dados SQLite
-    $pdo = new PDO('sqlite:databasedogio.db');
+    $pdo = new PDO('sqlite:../databasedogio.db');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Criar a tabela se não existir
