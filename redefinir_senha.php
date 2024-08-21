@@ -1,43 +1,34 @@
 <?php
+
+include("configsqlite.php");
 // Função para buscar um usuário pelo nome de usuário no banco de dados
 function buscarUsuarioPorUsuario($usuario) {
-    // Conectar ao banco de dados (substitua os valores conforme necessário)
-    $mysqli = new mysqli("127.0.0.1", "root", "", "login");
-
-    // Verificar a conexão
-    if ($mysqli->connect_error) {
-        die("Erro de conexão: " . $mysqli->connect_error);
-    }
+    
+    global $pdo;
 
     // Consulta SQL para buscar o usuário pelo nome de usuário
     $sql = "SELECT * FROM usuario WHERE usuario = ?";
 
     // Preparar a consulta
-    $stmt = $mysqli->prepare($sql);
+    $stmt = $pdo->prepare($sql);
 
     // Verificar se a preparação da consulta foi bem-sucedida
     if ($stmt === false) {
-        die("Erro na preparação da consulta: " . $mysqli->error);
+        die("Erro na preparação da consulta: " . $pdo->errorCode());
     }
 
     // Vincular o parâmetro de nome de usuário à consulta
-    $stmt->bind_param("s", $usuario);
+    $stmt->bindParam("s", $usuario);
 
     // Executar a consulta
     if ($stmt->execute()) {
         // Obter o resultado da consulta
-        $result = $stmt->get_result();
-
-        // Fechar a consulta
-        $stmt->close();
-
-        // Fechar a conexão
-        $mysqli->close();
+        $result = $stmt->fetchAll();
 
         // Retornar os resultados
-        return $result->fetch_assoc();
+        return $result;
     } else {
-        die("Erro ao executar a consulta: " . $stmt->error);
+        die("Erro ao executar a consulta: " . $stmt->errorCode());
     }
 }
 
@@ -53,16 +44,15 @@ if (isset($_POST['submit'])) {
         // Atualizar a senha no banco de dados
         $hashSenha = password_hash($novaSenha, PASSWORD_DEFAULT);
 
-        // Sua consulta SQL para atualizar a senha (substitua pelos detalhes do seu banco de dados)
-        $mysqli = new mysqli("127.0.0.1", "root", "", "login");
+ 
         $sql = "UPDATE usuario SET senha = ? WHERE usuario = ?";
 
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("ss", $hashSenha, $usuario);
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam("ss", $hashSenha, $usuario);
 
         if ($stmt->execute()) {
             // Verificar se algum registro foi afetado
-            if ($stmt->affected_rows > 0) {
+            if ($stmt->rowCount() > 0) {
                 // Redirecionar para uma página de sucesso ou exibir uma mensagem de sucesso
                 echo "Senha redefinida com sucesso!";
                 header("refresh:3;url=index.php");
@@ -72,11 +62,9 @@ if (isset($_POST['submit'])) {
             }
         } else {
             // Exibir uma mensagem de erro
-            echo "Erro ao atualizar a senha: " . $stmt->error;
+            echo "Erro ao atualizar a senha: " . $stmt->errorCode();
         }
 
-        $stmt->close();
-        $mysqli->close();
     } else {
         echo "Usuário não encontrado.";
     }
@@ -90,7 +78,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./style.css" rel="stylesheet" />
+    <link href="./styles/style.css" rel="stylesheet" />
     <title>Redefinir senha </title>
 </head>
 
