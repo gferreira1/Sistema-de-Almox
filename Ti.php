@@ -1,7 +1,8 @@
 <?php
+include('configsqlite.php');
 include('protect.php');
 include('pesquisa.php');
-include('configsqlite.php');
+
 ?>
 
 <!DOCTYPE html>
