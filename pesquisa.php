@@ -1,12 +1,4 @@
 <?php
-// Conexão com o banco de dados (substitua pelos seus detalhes de conexão)
-$usuario = 'root';
-$senha = '';
-$database = 'material';
-$host = 'localhost';
-
-$mysqli = new mysqli($host, $usuario, $senha, $database);
-
 if (isset($_GET['descricao'])) {
     $descricao = $_GET['descricao'];
 } else {
@@ -31,11 +23,7 @@ if (isset($_GET['item'])) {
 // Consulta SQL para pesquisa
 $sql = "SELECT * FROM descricao WHERE descricao LIKE '%$descricao%' AND localizacao LIKE '%$localizacao%' AND item LIKE '%$item%'AND categoria LIKE '%$categoria%' ";
 //var_dump($sql); // Adicione esta linha para depurar a consulta SQL
-$result = $mysqli->query($sql);
-
-
-
-
+$result = $pdo->exec($sql);
 ?>
 
 <!DOCTYPE html>

@@ -38,6 +38,18 @@ try {
         echo "Usuário adicionado com sucesso.";
     }
 
+    $sql = "CREATE TABLE IF NOT EXISTS descricao (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            descricao VARCHAR(255) NOT NULL ,
+            localizacao VARCHAR(255) NOT NULL,
+            item INTEGER NOT NULL,
+            categoria VARCHAR(255) NOT NULL
+    
+    )";
+
+    $pdo->exec($sql);
+    echo 'Tabela Descricao criada com sucesso';
+
 } catch (PDOException $e) {
     // Exibir mensagem de erro se a conexão falhar
     echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
