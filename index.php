@@ -1,24 +1,26 @@
 <?php
-include('config.php');
 session_start();
+
+include('configsqlite.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['usuario']) || empty($_POST['senha'])) {
         $login_error = "Preencha seu usuário e senha.";
     } else {
-        $usuario = $mysqli->real_escape_string($_POST['usuario']);
-        $senha_digitada = $mysqli->real_escape_string($_POST['senha']);
+        $usuario = $_POST['usuario'];
+        $senha_digitada = $_POST['senha'];
 
         // Consulta SQL parametrizada para prevenir SQL Injection
         $sql_code = "SELECT id, usuario, setor, senha FROM usuario WHERE usuario = ?";
-        $stmt = $mysqli->prepare($sql_code);
-        $stmt->bind_param("s", $usuario);
-        $stmt->execute();
-        $stmt->store_result();
+        $stmt = $pdo->prepare($sql_code);
+        $stmt->execute([$usuario]);
 
-        if ($stmt->num_rows == 1) {
-            $stmt->bind_result($id, $usuario, $setor, $senha_no_banco);
-            $stmt->fetch();
+        if ($stmt->rowCount() == 1) {
+            $stmt->bindColumn(1, $id);
+            $stmt->bindColumn(2, $usuario);
+            $stmt->bindColumn(3, $setor);
+            $stmt->bindColumn(4, $senha_no_banco);
+            $stmt->fetch(PDO::FETCH_BOUND);
 
             // Verificar a senha usando password_verify
             $senha_verificada = password_verify($senha_digitada, $senha_no_banco);
@@ -30,14 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['setor'] = $setor;
 
                 // Redireciona com base no setor
-                if (strcasecmp($setor, 'Compras') == 0 or strcasecmp($setor, 'compras') == 0) {
+                if (strcasecmp($setor, 'Compras') == 0) {
                     header("Location: compras.php");
                     exit();
-                    
-                } elseif ($setor == 'Alme') {
+                } elseif (strcasecmp($setor, 'Alme') == 0) {
                     header("Location: alme.php");
                     exit();
-                } elseif ($setor == 'TI') {
+                } elseif (strcasecmp($setor, 'TI') == 0) {
                     header("Location: ti.php");
                     exit();
                 } else {
@@ -48,11 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Credenciais inválidas
                 $login_error = "Credenciais inválidas. Verifique a senha.";
             }
-
-            $stmt->close();
         } else {
             // Usuário não encontrado
-            $login_error = "Credenciais inválidas. Verifique o usuário.";
+            $login_error = "Credenciaiss inválidas. Verifique o usuário.";
         }
     }
 }
