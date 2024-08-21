@@ -1,7 +1,7 @@
 <?php
 include('protect.php');
 include('pesquisa.php');
-include('config.php');
+include('configsqlite.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
@@ -22,26 +22,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
         // Inserir dados no banco de dados (usando consulta preparada)
-        $stmt = $mysqli->prepare("INSERT INTO usuario (nome, sobrenome, usuario, setor, senha) 
-                                VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO usuario(nome, sobrenome, usuario, setor, senha) 
+                                VALUES (:nome, :sobrenome, :usuario, :setor, :senha)");
 
         if (!$stmt) {
-            echo "Erro na preparação da consulta: " . $mysqli->error;
+            echo "Erro na preparação da consulta: " . $pdo->errorCode();
         } else {
             // Ajuste o tipo de dados no bind_param conforme necessário
-            $stmt->bind_param("sssss", $nome, $sobrenome, $usuario, $setor, $senha);
-
+            $stmt->bindParam(":nome", $nome);
+            $stmt->bindParam(":sobrenome", $sobrenome);
+            $stmt->bindParam(":usuario", $usuario);
+            $stmt->bindParam(":setor", $setor);
+            $stmt->bindParam(":senha", $senha);
+            
             if ($stmt->execute()) {
                 echo "Cadastro realizado com sucesso!";
             } else {
-                echo "Erro ao cadastrar: " . $stmt->error;
+                echo "Erro ao cadastrar: " . $stmt->errorCode();
             }
-
-            $stmt->close(); // Fechar a consulta preparada
+            // Fechar a consulta preparada
         }
 
-        // Fechar a conexão com o banco de dados
-        $mysqli->close();
     }
 }
 ?>

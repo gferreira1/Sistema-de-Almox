@@ -7,12 +7,14 @@ try {
     // Criar a tabela se não existir
     $sql = "CREATE TABLE IF NOT EXISTS usuario (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome VARCHAR(255),
+        sobrenome varchar(255),
         usuario TEXT NOT NULL UNIQUE,
         setor TEXT NOT NULL,
         senha TEXT NOT NULL
     )";
     $pdo->exec($sql);
-    echo "Tabela criada com sucesso.<br>";
+    //echo "Tabela criada com sucesso.<br>";
 
     // Dados do usuário
     $usuario = 'admin';
@@ -27,7 +29,7 @@ try {
     $userExists = $stmt->fetchColumn();
 
     if ($userExists) {
-        echo "O usuário já existe.<br>";
+        //echo "O usuário já existe.<br>";
     } else {
         // Adicionar um usuário com senha criptografada
         $sql = "INSERT INTO usuario (usuario, setor, senha) VALUES (?, ?, ?)";
@@ -48,7 +50,7 @@ try {
     )";
 
     $pdo->exec($sql);
-    echo 'Tabela Descricao criada com sucesso';
+    //echo 'Tabela Descricao criada com sucesso';
 
 } catch (PDOException $e) {
     // Exibir mensagem de erro se a conexão falhar
