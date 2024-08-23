@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('config2.php');
+$ROOT_PATH = '..';
+include("$ROOT_PATH/configs/configsqlite2.php");
+include("$ROOT_PATH/protect.php");
+include("$ROOT_PATH/pesquisa.php");
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@ include('config2.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylecompras.css">
-    <script src="./compras.js"></script>
+    <script src="../compras.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Gerenciamento de Estoque Compras</title>
 
@@ -22,7 +23,7 @@ include('config2.php');
 
 <body>
     <div class="buttonsair text-right">
-        <button class="sair" onclick="window.location.href = 'index.php';">Sair</button>
+        <button class="sair" onclick="window.location.href = '../index.php';">Sair</button>
     </div>
 
     <div class="container-fluid">
@@ -47,13 +48,13 @@ include('config2.php');
 
                         echo '<div class="balance-box">';
                         echo '<h3>Saldo</h3>';
-
                         // Calcula o saldo total somando os valores calculados (quantidade * valor)
-                        while ($row = $result->fetch_assoc()) {
-                            $valorTotal = $row['quantidade'] * $row['valor'];
-                            $saldoTotal += $valorTotal;
+                        if($result){
+                            while ($row = $result->fetchAll()) {
+                                $valorTotal = $row['quantidade'] * $row['valor'];
+                                $saldoTotal += $valorTotal;
+                            }
                         }
-
                         // Exibe o saldo total formatado como moeda
                         echo '<p class="balance-value">R$ ' . number_format($saldoTotal, 2, ',', '.') . '</p>';
                         echo '</div>';

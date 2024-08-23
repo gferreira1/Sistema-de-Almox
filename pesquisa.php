@@ -1,9 +1,5 @@
 <?php
-// Conexão com o banco de dados (substitua pelos seus detalhes de conexão)
-//$usuario = 'root';
-//$senha = '';
-//database = 'material';
-//host = 'localhost';
+include("configs/configsqlite.php");
 
 if (isset($_GET['descricao'])) {
     $descricao = $_GET['descricao'];
@@ -30,10 +26,6 @@ if (isset($_GET['item'])) {
 $sql = "SELECT * FROM descricao WHERE descricao LIKE '%$descricao%' AND localizacao LIKE '%$localizacao%' AND item LIKE '%$item%'AND categoria LIKE '%$categoria%' ";
 //var_dump($sql); // Adicione esta linha para depurar a consulta SQL
 $result = $pdo->exec($sql);
-
-
-
-
 ?>
 
 <!DOCTYPE html>

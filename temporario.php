@@ -8,7 +8,7 @@
   </main>
 
 <?php
-
+$ROOT_PATH = '.';
 $usuario = 'root';
 $senha = '';
 $database_login = 'login';

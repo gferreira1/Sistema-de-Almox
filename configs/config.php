@@ -1,5 +1,5 @@
 <?php
-
+/*
 $usuario = 'root';
 $senha = '';
 $database = 'login';
@@ -31,7 +31,7 @@ $result_login = $mysqli->query($sql_login);
 // ... Faça algo com os resultados do banco de dados "login"
 ?>
 
-
+*/
 
 
 

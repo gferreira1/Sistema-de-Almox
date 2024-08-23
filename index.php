@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include('configsqlite.php');
-include('routes.php');
+include("configs/configsqlite.php");
+include("routes.php");
 
 ?>
 <!DOCTYPE html>

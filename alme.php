@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('config2.php');
+
+include("protect.php");
+include("pesquisa.php");
+include("configs/config2.php");
 ?>
 
 <!DOCTYPE html>

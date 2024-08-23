@@ -1,6 +1,6 @@
 <?php
 
-include("configsqlite.php");
+include("configs/configsqlite.php");
 // Função para buscar um usuário pelo nome de usuário no banco de dados
 function buscarUsuarioPorUsuario($usuario) {
     
