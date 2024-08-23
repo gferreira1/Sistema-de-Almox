@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: alme.php");
                     exit();
                 } elseif (strcasecmp($setor, 'TI') == 0) {
-                    header("Location: /ti.php");
+                    header("Location: ti.php");
                     exit();
                 } else {
                     // Adicione outras verificações de setor conforme necessário
