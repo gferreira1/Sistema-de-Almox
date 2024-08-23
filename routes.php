@@ -1,4 +1,5 @@
 <?php 
+$ROOT_PATH = './';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['usuario']) || empty($_POST['senha'])) {
         $login_error = "Preencha seu usuário e senha.";

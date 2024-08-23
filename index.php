@@ -1,8 +1,8 @@
 <?php
 session_start();
-
-include('./configs/configsqlite.php');
-include('routes.php');
+$ROOT_PATH = './';
+include("$ROOT_PATH/configs/configsqlite.php");
+include("$ROOT_PATH/routes.php");
 
 ?>
 <!DOCTYPE html>

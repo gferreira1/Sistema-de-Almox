@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('configs/configsqlite.php');
+$ROOT_PATH = './';
+include("$ROOT_PATH/protect.php");
+include("$ROOT_PATH/pesquisa.php");
+include("$ROOT_PATH/configs/configsqlite.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];

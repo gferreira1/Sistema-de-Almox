@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('../configs/config2.php');
+$ROOT_PATH = './';
+include("$ROOT_PATH/protect.php");
+include("$ROOT_PATH/pesquisa.php");
+include("$ROOT_PATH/configs/config2.php");
 ?>
 
 <!DOCTYPE html>

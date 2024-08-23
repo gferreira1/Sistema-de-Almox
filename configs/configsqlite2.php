@@ -1,6 +1,6 @@
 <?php
 try {
-    $pdo = new PDO("sqlite:../databasematerial.db");
+    $pdo = new PDO("sqlite:$ROOT_PATH/databasematerial.db");
 
     $query = 'CREATE TABLE IF NOT EXISTS tabela_material(
         id INTEGER PRIMARY KEY AUTOINCREMENT
