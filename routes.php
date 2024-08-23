@@ -30,13 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redireciona com base no setor
                 if (strcasecmp($setor, 'Compras') == 0) {
-                    header("Location: views/compras.php");
+                    header("Location: compras.php");
                     exit();
                 } elseif (strcasecmp($setor, 'Alme') == 0) {
-                    header("Location: views/alme.php");
+                    header("Location: alme.php");
                     exit();
                 } elseif (strcasecmp($setor, 'TI') == 0) {
-                    header("Location: views/ti.php");
+                    header("Location: /ti.php");
                     exit();
                 } else {
                     // Adicione outras verificações de setor conforme necessário
