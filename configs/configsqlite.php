@@ -1,7 +1,7 @@
 <?php
 try {
     // Conectar ao banco de dados SQLite
-    $pdo = new PDO("sqlite:$ROOT_PATH/databaseuser.db");
+    $pdo = new PDO("sqlite:databaseuser.db");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Criar a tabela se não existir

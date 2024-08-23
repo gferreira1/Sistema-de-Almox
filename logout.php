@@ -1,6 +1,6 @@
 <?php
-$ROOT_PATH = './';
-include("$ROOT_PATH/configs/config.php");
+
+include("configs/config.php");
 
 if(isset($_POST['email']) || isset($_POST['senha'])) {
 

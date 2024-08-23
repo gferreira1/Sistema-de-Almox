@@ -1,6 +1,5 @@
 <?php
-$ROOT_PATH = './';
-include("$ROOT_PATH/configs/configsqlite.php");
+include("configs/configsqlite.php");
 
 if (isset($_GET['descricao'])) {
     $descricao = $_GET['descricao'];

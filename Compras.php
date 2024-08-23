@@ -1,8 +1,8 @@
 <?php
-$ROOT_PATH = '../';
+$ROOT_PATH = '..';
+include("$ROOT_PATH/configs/configsqlite2.php");
 include("$ROOT_PATH/protect.php");
 include("$ROOT_PATH/pesquisa.php");
-include("$ROOT_PATH/configs/configsqlite2.php");
 ?>
 
 <!DOCTYPE html>
