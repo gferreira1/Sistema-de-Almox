@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('config.php');
+$ROOT_PATH = '.';
+include("$ROOT_PATH/protect.php");
+include("$ROOT_PATH/pesquisa.php");
+include("$ROOT_PATH/configs/configsqlite.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
@@ -10,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $setor = $_POST["setor"];
     $senha = $_POST["senha"];
     $confirm_senha = $_POST["confirm_senha"];
-
+    var_dump($_POST);
     // Verificações de entrada
     if (empty($nome) || empty($sobrenome) || empty($setor) || empty($senha) || empty($confirm_senha) || empty($usuario)) {
         echo "Todos os campos são obrigatórios.";
@@ -22,26 +23,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
         // Inserir dados no banco de dados (usando consulta preparada)
-        $stmt = $mysqli->prepare("INSERT INTO usuario (nome, sobrenome, usuario, setor, senha) 
-                                VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO usuario(nome, sobrenome, usuario, setor, senha) 
+                                VALUES (:nome, :sobrenome, :usuario, :setor, :senha)");
 
         if (!$stmt) {
-            echo "Erro na preparação da consulta: " . $mysqli->error;
+            echo "Erro na preparação da consulta: " . $pdo->errorCode(); 
         } else {
             // Ajuste o tipo de dados no bind_param conforme necessário
-            $stmt->bind_param("sssss", $nome, $sobrenome, $usuario, $setor, $senha);
-
+            $stmt->bindParam(":nome", $nome);
+            $stmt->bindParam(":sobrenome", $sobrenome);
+            $stmt->bindParam(":usuario", $usuario);
+            $stmt->bindParam(":setor", $setor);
+            $stmt->bindParam(":senha", $senha);
+            
             if ($stmt->execute()) {
                 echo "Cadastro realizado com sucesso!";
             } else {
-                echo "Erro ao cadastrar: " . $stmt->error;
+                echo "Erro ao cadastrar: " . $stmt->errorCode();
             }
-
-            $stmt->close(); // Fechar a consulta preparada
+            // Fechar a consulta preparada
         }
 
-        // Fechar a conexão com o banco de dados
-        $mysqli->close();
     }
 }
 ?>

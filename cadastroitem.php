@@ -1,7 +1,8 @@
 <?php
-include('protect.php');
-include('pesquisa.php');
-include('config2.php');
+$ROOT_PATH = '.';
+include("protect.php");
+include("pesquisa.php");
+include("configs/config2.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantidade = $_POST["quantidade"];

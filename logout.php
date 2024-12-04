@@ -1,5 +1,6 @@
 <?php
-include('config.php');
+
+include("configs/config.php");
 
 if(isset($_POST['email']) || isset($_POST['senha'])) {
 
